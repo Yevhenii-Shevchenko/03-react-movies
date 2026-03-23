@@ -16,12 +16,12 @@ function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const handleSearch = async (query: string) => {
     setMovies([]);
     setIsLoading(true);
+    setIsError(false);
     try {
       const movies = await fetchMovies(query);
       if (!movies.length) {
@@ -37,16 +37,9 @@ function App() {
     }
   };
 
-  const handleSelect = (movieId: number) => {
-    movies.map(movie => {
-      if (movie.id === movieId) {
-        setSelectedMovie(movie);
-        setIsModalOpen(true);
-      }
-    });
+  const handleSelect = (movie: Movie) => {
+    setSelectedMovie(movie);
   };
-
-  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className={css.app}>
@@ -58,7 +51,12 @@ function App() {
         <MovieGrid onSelect={handleSelect} movies={movies} />
       )}
       {isLoading && <Loader />}
-      {isModalOpen && <MovieModal movie={selectedMovie} onClose={closeModal} />}
+      {selectedMovie && (
+        <MovieModal
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
+        />
+      )}
     </div>
   );
 }
