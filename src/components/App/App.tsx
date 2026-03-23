@@ -7,6 +7,7 @@ import type { Movie } from '../../types/movie';
 import { fetchMovies } from '../services/movieService';
 
 import SearchBar from '../SearchBar/SearchBar';
+import MovieGrid from '../MovieGrid/MovieGrid';
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -31,6 +32,7 @@ function App() {
     <div className={css.app}>
       <SearchBar onSubmit={handleSearch} />
       <Toaster toastOptions={toastOptions} />
+      <MovieGrid movies={movies} />
     </div>
   );
 }
