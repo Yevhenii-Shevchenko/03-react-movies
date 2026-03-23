@@ -4,7 +4,7 @@ import { notify, toastOptions } from '../../helpers/hot-toast';
 
 import css from './App.module.css';
 import type { Movie } from '../../types/movie';
-import { fetchMovies } from '../services/movieService';
+import { fetchMovies } from '../../services/movieService';
 
 import SearchBar from '../SearchBar/SearchBar';
 import MovieGrid from '../MovieGrid/MovieGrid';
